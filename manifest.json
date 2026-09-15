@@ -1,0 +1,39 @@
+{
+  "name": "قرآن پاک — لمس سے پڑھیں",
+  "short_name": "Quran Touch",
+  "description": "Full Quran reader with touch-to-hear word-by-word pronunciation, Urdu translation, and full ayah recitation for learners who cannot yet read Arabic fluently.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08332B",
+  "theme_color": "#08332B",
+  "lang": "ur",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
