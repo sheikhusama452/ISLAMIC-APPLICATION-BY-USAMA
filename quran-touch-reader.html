@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>قرآن پاک — لمس سے پڑھیں</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep: #08332B;      /* deep bottle green */
+    --deep2: #0E4A3C;
+    --gold: #C9A15A;      /* muted antique gold */
+    --gold-bright: #E6C87A;
+    --cream: #F6F1E4;
+    --cream-dim: #D9D0B8;
+    --line: rgba(230,200,122,0.18);
+    --active: #E6C87A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #0E5443 0%, transparent 60%),
+      radial-gradient(1200px 700px at 100% 0%, #0A3E32 0%, transparent 55%),
+      var(--deep);
+    color:var(--cream);
+    font-family:'Jost', 'Noto Nastaliq Urdu', sans-serif;
+    min-height:100vh;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 60px;}
+
+  header.top{
+    text-align:center;
+    padding:22px 10px 18px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:14px;
+  }
+  header.top .bismillah{
+    font-family:'Scheherazade New', serif;
+    font-size:30px;
+    color:var(--gold-bright);
+    margin:0 0 6px;
+    line-height:1.6;
+  }
+  header.top h1{
+    font-family:'Noto Nastaliq Urdu', serif;
+    font-weight:700;
+    font-size:26px;
+    margin:0 0 4px;
+    color:var(--cream);
+  }
+  header.top p.sub{
+    font-family:'Jost', sans-serif;
+    font-size:12px;
+    letter-spacing:.04em;
+    color:var(--cream-dim);
+    margin:0;
+    direction:ltr;
+  }
+
+  .howto{
+    background:rgba(230,200,122,0.07);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    font-family:'Noto Nastaliq Urdu', serif;
+    font-size:15px;
+    line-height:2;
+    color:var(--cream-dim);
+    margin-bottom:18px;
+  }
+  .howto b{color:var(--gold-bright);}
+
+  .controls{
+    display:flex;
+    gap:10px;
+    margin-bottom:16px;
+    direction:rtl;
+  }
+  select, button.pill{
+    font-family:'Noto Nastaliq Urdu', serif;
+    font-size:16px;
+    background:var(--deep2);
+    color:var(--cream);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 14px;
+  }
+  select{flex:1; appearance:none;}
+  button.pill{
+    background:var(--gold);
+    color:var(--deep);
+    font-weight:600;
+    border:none;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  button.pill:active{transform:scale(0.97);}
+  button.pill.ghost{
+    background:transparent;
+    color:var(--gold-bright);
+    border:1px solid var(--gold);
+    font-weight:400;
+  }
+
+  #status{
+    text-align:center;
+    color:var(--cream-dim);
+    font-family:'Noto Nastaliq Urdu', serif;
+    padding:30px 10px;
+    font-size:15px;
+  }
+
+  .surah-title{
+    text-align:center;
+    margin:6px 0 20px;
+  }
+  .surah-title .ar{
+    font-family:'Scheherazade New', serif;
+    font-size:34px;
+    color:var(--gold-bright);
+  }
+  .surah-title .meta{
+    font-family:'Jost', sans-serif;
+    font-size:12px;
+    color:var(--cream-dim);
+    letter-spacing:.03em;
+  }
+
+  .ayah{
+    border-bottom:1px solid var(--line);
+    padding:20px 4px 22px;
+  }
+  .ayah-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+    direction:rtl;
+  }
+  .ayah-num{
+    font-family:'Jost',sans-serif;
+    font-size:12px;
+    color:var(--gold);
+    border:1px solid var(--gold);
+    border-radius:50%;
+    width:26px;height:26px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ayah-actions{display:flex; gap:8px;}
+  .icon-btn{
+    background:none;
+    border:1px solid var(--line);
+    color:var(--gold-bright);
+    border-radius:8px;
+    padding:6px 10px;
+    font-size:12px;
+    font-family:'Jost',sans-serif;
+    cursor:pointer;
+  }
+  .icon-btn:active{background:rgba(230,200,122,0.12);}
+
+  .bismillah-row{
+    font-family:'Scheherazade New', serif;
+    font-size:30px;
+    text-align:center;
+    color:var(--gold-bright);
+    padding:6px 8px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+
+  .words{
+    display:flex;
+    flex-wrap:wrap;
+    direction:rtl;
+    gap:6px 14px;
+    line-height:2.6;
+    justify-content:flex-start;
+    touch-action:none;
+  }
+  .word{
+    font-family:'Scheherazade New', serif;
+    font-size:32px;
+    color:var(--cream);
+    padding:2px 6px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .15s, color .15s;
+    user-select:none;
+  }
+  .word.active{
+    background:var(--active);
+    color:var(--deep);
+  }
+  .translation{
+    font-family:'Noto Nastaliq Urdu', serif;
+    font-size:16px;
+    color:var(--cream-dim);
+    margin-top:12px;
+    line-height:2.1;
+    direction:rtl;
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 10px 10px;
+    font-family:'Jost',sans-serif;
+    font-size:11px;
+    color:rgba(217,208,184,0.5);
+    direction:ltr;
+    line-height:1.8;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <h1>قرآن پاک — لمس سے پڑھیں</h1>
+    <p class="sub">Touch &amp; Read Quran · word-by-word audio</p>
+  </header>
+
+  <div class="howto">
+    <b>استعمال کا طریقہ:</b> نیچے سورت منتخب کریں۔ کسی بھی لفظ پر <b>انگلی رکھ کر تھوڑا سا کھینچیں</b>، ہر لفظ پر انگلی آتے ہی اس کی آواز سنائی دے گی۔ یا کسی ایک لفظ پر صرف <b>ٹچ</b> کریں۔ مکمل آیت سننے کے لیے آیت کے ساتھ 🔊 دبائیں۔
+  </div>
+
+  <div class="controls">
+    <select id="surahSelect"><option>سورتیں لوڈ ہو رہی ہیں…</option></select>
+    <button class="pill" id="continueBtn" style="display:none;">جاری رکھیں</button>
+  </div>
+
+  <div id="status">قرآن پاک لوڈ ہو رہا ہے…</div>
+
+  <div id="surahTitle" class="surah-title" style="display:none;">
+    <div class="ar" id="surahAr"></div>
+    <div class="meta" id="surahMeta"></div>
+  </div>
+
+  <div id="ayahList"></div>
+
+  <footer>
+    Arabic text (Uthmani) &amp; Urdu translation (Jalandhry) via AlQuran.Cloud API ·
+    Word pronunciation audio &amp; ayah recitation (Mishary Alafasy) via public Quran audio CDNs ·
+    Built for learning — always verify recitation with a qualified teacher.
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  const surahSelect = document.getElementById('surahSelect');
+  const statusEl = document.getElementById('status');
+  const ayahList = document.getElementById('ayahList');
+  const surahTitleWrap = document.getElementById('surahTitle');
+  const surahAr = document.getElementById('surahAr');
+  const surahMeta = document.getElementById('surahMeta');
+  const continueBtn = document.getElementById('continueBtn');
+
+  let surahs = [];
+  let currentAudio = null;
+  let lastTouchedWord = null;
+  let sequencePlaying = false;
+
+  const pad3 = n => String(n).padStart(3,'0');
+  const wordAudioUrl = (s,a,w) => `https://audio.qurancdn.com/wbw/${pad3(s)}_${pad3(a)}_${pad3(w)}.mp3`;
+  const ayahAudioUrl = (s,a) => `https://everyayah.com/data/Alafasy_128kbps/${pad3(s)}${pad3(a)}.mp3`;
+  const BISMILLAH_AUDIO = [1,2,3,4].map(w => wordAudioUrl(1,1,w));
+
+  function playUrl(url, onEnd){
+    try{
+      if(currentAudio){ currentAudio.pause(); currentAudio.currentTime = 0; }
+      currentAudio = new Audio(url);
+      currentAudio.play().catch(()=>{});
+      if(onEnd) currentAudio.onended = onEnd;
+    }catch(e){ console.error('audio error', e); }
+  }
+
+  function highlight(el){
+    document.querySelectorAll('.word.active').forEach(w=>{ if(w!==el) w.classList.remove('active'); });
+    if(el){
+      el.classList.add('active');
+      setTimeout(()=>el.classList.remove('active'), 500);
+    }
+  }
+
+  async function loadSurahList(){
+    try{
+      const res = await fetch('https://api.alquran.cloud/v1/surah');
+      const data = await res.json();
+      surahs = data.data;
+      surahSelect.innerHTML = surahs.map(s =>
+        `<option value="${s.number}">${s.number}. ${s.name} — ${s.englishName}</option>`
+      ).join('');
+      statusEl.style.display = 'none';
+      checkBookmark();
+      loadSurah(1);
+    }catch(e){
+      statusEl.textContent = 'انٹرنیٹ سے رابطہ نہیں ہو سکا۔ براہ کرم انٹرنیٹ کنکشن چیک کریں اور صفحہ دوبارہ کھولیں۔';
+    }
+  }
+
+  async function checkBookmark(){
+    try{
+      const r = await window.storage.get('last-read');
+      if(r && r.value){
+        const b = JSON.parse(r.value);
+        continueBtn.style.display = 'inline-block';
+        continueBtn.textContent = `جاری رکھیں (سورت ${b.surah}، آیت ${b.ayah})`;
+        continueBtn.onclick = ()=>{ surahSelect.value = b.surah; loadSurah(b.surah, b.ayah); };
+      }
+    }catch(e){ /* no bookmark yet, ignore */ }
+  }
+
+  function saveBookmark(surah, ayah){
+    try{ window.storage.set('last-read', JSON.stringify({surah, ayah})); }catch(e){}
+  }
+
+  async function loadSurah(number, scrollToAyah){
+    number = parseInt(number);
+    surahSelect.value = number;
+    statusEl.style.display = 'block';
+    statusEl.textContent = 'آیات لوڈ ہو رہی ہیں…';
+    ayahList.innerHTML = '';
+    surahTitleWrap.style.display = 'none';
+
+    try{
+      const [arRes, urRes] = await Promise.all([
+        fetch(`https://api.alquran.cloud/v1/surah/${number}/quran-uthmani`),
+        fetch(`https://api.alquran.cloud/v1/surah/${number}/ur.jalandhry`)
+      ]);
+      const arData = (await arRes.json()).data;
+      const urData = (await urRes.json()).data;
+
+      surahAr.textContent = arData.name;
+      surahMeta.textContent = `${arData.englishName} · ${arData.englishNameTranslation} · ${arData.revelationType === 'Meccan' ? 'مکی' : 'مدنی'} · ${arData.numberOfAyahs} آیات`;
+      surahTitleWrap.style.display = 'block';
+
+      statusEl.style.display = 'none';
+      const hasOwnBismillah = (number === 1); // Al-Fatiha's bismillah IS ayah 1
+      const noBismillah = (number === 9); // At-Tawbah has none
+
+      arData.ayahs.forEach((ayah, idx) => {
+        const urAyah = urData.ayahs[idx];
+        const div = document.createElement('div');
+        div.className = 'ayah';
+        div.id = `ayah-${ayah.numberInSurah}`;
+
+        let text = ayah.text;
+        let bismillahHtml = '';
+
+        if (ayah.numberInSurah === 1 && !hasOwnBismillah && !noBismillah){
+          const words = text.trim().split(/\s+/);
+          if (words.length > 4){
+            const bismillahWords = words.slice(0,4);
+            text = words.slice(4).join(' ');
+            bismillahHtml = `<div class="bismillah-row" data-bismillah="1">${bismillahWords.join(' ')}</div>`;
+          }
+        }
+
+        const words = text.trim().split(/\s+/);
+        const wordsHtml = words.map((w, i) =>
+          `<span class="word" data-audio="${wordAudioUrl(number, ayah.numberInSurah, i+1)}">${w}</span>`
+        ).join('');
+
+        div.innerHTML = `
+          <div class="ayah-head">
+            <div class="ayah-actions">
+              <button class="icon-btn" data-play-ayah="${number}:${ayah.numberInSurah}">🔊 آیت سنیں</button>
+              <button class="icon-btn" data-play-seq="${ayah.numberInSurah}">▶ لفظ بہ لفظ</button>
+            </div>
+            <div class="ayah-num">${ayah.numberInSurah}</div>
+          </div>
+          ${bismillahHtml}
+          <div class="words" data-ayah="${ayah.numberInSurah}">${wordsHtml}</div>
+          <div class="translation">${urAyah ? urAyah.text : ''}</div>
+        `;
+        ayahList.appendChild(div);
+        saveBookmarkOnView(div, number, ayah.numberInSurah);
+      });
+
+      attachInteractions();
+      saveBookmark(number, 1);
+
+      if (scrollToAyah){
+        setTimeout(()=>{
+          const el = document.getElementById(`ayah-${scrollToAyah}`);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+        }, 200);
+      } else {
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+    }catch(e){
+      statusEl.style.display = 'block';
+      statusEl.textContent = 'یہ سورت لوڈ نہیں ہو سکی۔ دوبارہ کوشش کریں۔';
+      console.error(e);
+    }
+  }
+
+  function saveBookmarkOnView(div, surahNum, ayahNum){
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting) saveBookmark(surahNum, ayahNum);
+      });
+    }, {threshold:0.6});
+    obs.observe(div);
+  }
+
+  function attachInteractions(){
+    // tap / click a single word
+    ayahList.querySelectorAll('.word').forEach(w=>{
+      w.addEventListener('click', ()=>{
+        highlight(w);
+        playUrl(w.dataset.audio);
+      });
+    });
+
+    // tap bismillah row
+    ayahList.querySelectorAll('.bismillah-row').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        let i = 0;
+        const playNext = ()=>{
+          if(i >= BISMILLAH_AUDIO.length) return;
+          playUrl(BISMILLAH_AUDIO[i], playNext);
+          i++;
+        };
+        playNext();
+      });
+    });
+
+    // finger-drag reading: as the finger moves across words, play each word it touches
+    ayahList.querySelectorAll('.words').forEach(container=>{
+      const handleMove = (clientX, clientY) => {
+        const el = document.elementFromPoint(clientX, clientY);
+        if(el && el.classList.contains('word') && el !== lastTouchedWord){
+          lastTouchedWord = el;
+          highlight(el);
+          playUrl(el.dataset.audio);
+        }
+      };
+
+      container.addEventListener('touchstart', (e)=>{
+        lastTouchedWord = null;
+        const t = e.touches[0];
+        handleMove(t.clientX, t.clientY);
+      }, {passive:true});
+
+      container.addEventListener('touchmove', (e)=>{
+        const t = e.touches[0];
+        handleMove(t.clientX, t.clientY);
+      }, {passive:true});
+
+      container.addEventListener('touchend', ()=>{ lastTouchedWord = null; });
+
+      // mouse-drag support for desktop testing
+      let mouseDown = false;
+      container.addEventListener('mousedown', (e)=>{ mouseDown = true; lastTouchedWord = null; handleMove(e.clientX, e.clientY); });
+      container.addEventListener('mousemove', (e)=>{ if(mouseDown) handleMove(e.clientX, e.clientY); });
+      window.addEventListener('mouseup', ()=>{ mouseDown = false; lastTouchedWord = null; });
+    });
+
+    // play full ayah recitation (Alafasy)
+    ayahList.querySelectorAll('[data-play-ayah]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const [s,a] = btn.dataset.playAyah.split(':');
+        playUrl(ayahAudioUrl(s,a));
+      });
+    });
+
+    // play word-by-word in sequence with highlighting, for learning
+    ayahList.querySelectorAll('[data-play-seq]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(sequencePlaying) return;
+        sequencePlaying = true;
+        const ayahNum = btn.dataset.playSeq;
+        const container = ayahList.querySelector(`.words[data-ayah="${ayahNum}"]`);
+        const wordEls = Array.from(container.querySelectorAll('.word'));
+        let i = 0;
+        const playNext = ()=>{
+          if(i >= wordEls.length){ sequencePlaying = false; return; }
+          const el = wordEls[i];
+          highlight(el);
+          playUrl(el.dataset.audio, playNext);
+          i++;
+        };
+        playNext();
+      });
+    });
+  }
+
+  surahSelect.addEventListener('change', (e)=> loadSurah(e.target.value));
+
+  loadSurahList();
+})();
+</script>
+</body>
+</html>
