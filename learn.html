@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>تعلیم — نماز، وضو، حج، عمرہ، زکوٰۃ اور مزید</title>
+<meta name="description" content="Namaz, Wudu, Ghusl, Janazah, Hajj, Umrah, Itikaf, Zakat calculator, Duas, Hadith and Islamic calendar guide.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#08332B">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep:#08332B; --deep2:#0E4A3C; --gold:#C9A15A; --gold-bright:#E6C87A;
+    --cream:#F6F1E4; --cream-dim:#D9D0B8; --line:rgba(230,200,122,0.18);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: radial-gradient(1200px 600px at 10% -10%, #0E5443 0%, transparent 60%),
+      radial-gradient(1200px 700px at 100% 0%, #0A3E32 0%, transparent 55%), var(--deep);
+    color:var(--cream); font-family:'Jost','Noto Nastaliq Urdu',sans-serif; min-height:100vh;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:16px 16px 60px;}
+  a.backlink{display:inline-block;color:var(--gold-bright);text-decoration:none;font-family:'Jost',sans-serif;font-size:12px;margin-bottom:10px;}
+  header.top{text-align:center;padding:14px 10px 16px;border-bottom:1px solid var(--line);margin-bottom:16px;}
+  header.top h1{font-family:'Noto Nastaliq Urdu',serif;font-weight:700;font-size:24px;margin:0 0 4px;}
+  header.top p{font-family:'Noto Nastaliq Urdu',serif;font-size:13px;color:var(--cream-dim);margin:0;}
+
+  .tabbar{display:flex;overflow-x:auto;gap:6px;padding-bottom:10px;margin-bottom:16px;border-bottom:1px solid var(--line);
+    direction:rtl;-webkit-overflow-scrolling:touch;}
+  .tabbar::-webkit-scrollbar{height:4px;}
+  .tabbtn{flex-shrink:0;background:var(--deep2);border:1px solid var(--line);color:var(--cream);border-radius:20px;
+    padding:8px 14px;font-family:'Noto Nastaliq Urdu',serif;font-size:14px;cursor:pointer;white-space:nowrap;}
+  .tabbtn.active{background:var(--gold);color:var(--deep);border-color:var(--gold);font-weight:600;}
+
+  .topic{display:none;direction:rtl;}
+  .topic.active{display:block;animation:fade .2s ease;}
+  @keyframes fade{from{opacity:0;} to{opacity:1;}}
+
+  .topic h2{font-family:'Noto Nastaliq Urdu',serif;color:var(--gold-bright);font-size:22px;margin:0 0 6px;}
+  .topic .note{font-family:'Noto Nastaliq Urdu',serif;font-size:13px;color:var(--cream-dim);background:rgba(230,200,122,0.07);
+    border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:16px;line-height:1.9;}
+  .topic p{font-family:'Noto Nastaliq Urdu',serif;font-size:16px;line-height:2.1;color:var(--cream);}
+
+  .steps{counter-reset:step;list-style:none;padding:0;margin:0;}
+  .steps li{counter-increment:step;position:relative;padding:12px 50px 12px 12px;margin-bottom:10px;
+    background:rgba(230,200,122,0.05);border:1px solid var(--line);border-radius:10px;
+    font-family:'Noto Nastaliq Urdu',serif;font-size:15px;line-height:2;}
+  .steps li::before{content:counter(step);position:absolute;right:12px;top:12px;width:26px;height:26px;border-radius:50%;
+    background:var(--gold);color:var(--deep);display:flex;align-items:center;justify-content:center;
+    font-family:'Jost',sans-serif;font-weight:700;font-size:13px;}
+  .steps li{padding-right:48px;}
+  .steps .step-title{color:var(--gold-bright);font-weight:700;display:block;margin-bottom:4px;}
+
+  .arabic{font-family:'Scheherazade New',serif;font-size:26px;color:var(--gold-bright);direction:rtl;line-height:1.8;display:block;margin:6px 0;}
+  .translit{font-family:'Jost',sans-serif;font-size:12px;color:var(--cream-dim);direction:ltr;display:block;}
+  .meaning{font-family:'Noto Nastaliq Urdu',serif;font-size:14px;color:var(--cream);display:block;margin-top:2px;}
+
+  .card{background:rgba(230,200,122,0.05);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px;}
+  .card .occasion{font-family:'Jost',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.04em;margin-bottom:6px;direction:ltr;}
+
+  .hadith-card{border-right:3px solid var(--gold);padding-right:12px;margin-bottom:16px;}
+  .hadith-card .src{font-family:'Jost',sans-serif;font-size:11px;color:var(--gold-bright);margin-top:6px;direction:ltr;}
+
+  h3.sub{font-family:'Noto Nastaliq Urdu',serif;color:var(--gold);font-size:17px;margin:20px 0 8px;}
+
+  .calc-row{display:flex;gap:8px;align-items:center;margin-bottom:10px;}
+  .calc-row label{flex:1;font-family:'Noto Nastaliq Urdu',serif;font-size:14px;}
+  .calc-row input{width:130px;background:var(--deep2);border:1px solid var(--line);border-radius:8px;color:var(--cream);
+    padding:8px;font-family:'Jost',sans-serif;font-size:14px;direction:ltr;text-align:left;}
+  .calc-btn{background:var(--gold);color:var(--deep);border:none;border-radius:8px;padding:10px 18px;font-weight:700;
+    font-family:'Noto Nastaliq Urdu',serif;font-size:15px;cursor:pointer;margin-top:8px;}
+  .calc-result{margin-top:14px;padding:14px;background:rgba(230,200,122,0.1);border:1px solid var(--gold);border-radius:10px;
+    font-family:'Noto Nastaliq Urdu',serif;font-size:15px;display:none;}
+  .calc-result.show{display:block;}
+  .calc-result b{color:var(--gold-bright);font-size:20px;}
+
+  .cal-panel{background:rgba(230,200,122,0.07);border:1px solid var(--line);border-radius:10px;padding:16px;text-align:center;margin-bottom:16px;}
+  .cal-panel .hijri-big{font-family:'Scheherazade New',serif;font-size:30px;color:var(--gold-bright);}
+  .cal-panel .greg-small{font-family:'Jost',sans-serif;font-size:12px;color:var(--cream-dim);direction:ltr;margin-top:4px;}
+
+  .months-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;}
+  .months-grid div{background:var(--deep2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;
+    font-family:'Noto Nastaliq Urdu',serif;}
+  .months-grid .num{color:var(--gold);font-family:'Jost',sans-serif;margin-left:6px;}
+
+  .timings-table{width:100%;border-collapse:collapse;margin-top:10px;}
+  .timings-table td{padding:8px 4px;border-bottom:1px solid var(--line);font-family:'Jost',sans-serif;}
+  .timings-table td:first-child{font-family:'Noto Nastaliq Urdu',serif;color:var(--gold-bright);}
+  .timings-table td:last-child{text-align:left;direction:ltr;font-weight:600;}
+  .locbtn{background:var(--gold);color:var(--deep);border:none;border-radius:8px;padding:10px 16px;font-weight:700;
+    font-family:'Noto Nastaliq Urdu',serif;font-size:14px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backlink" href="index.html">◀ قرآن پاک ایپ پر واپس</a>
+  <header class="top">
+    <h1>تعلیمِ اسلام</h1>
+    <p>نماز، وضو، غسل، حج، عمرہ، زکوٰۃ، دعائیں، احادیث اور اسلامی کیلنڈر</p>
+  </header>
+
+  <div class="tabbar" id="tabbar"></div>
+  <div id="topics"></div>
+</div>
+
+<script>
+(function(){
+
+// ---------- Islamic (tabular) calendar conversion — works offline, no API needed ----------
+function gregorianToHijri(date){
+  let y=date.getFullYear(), m=date.getMonth()+1, d=date.getDate();
+  let jd = Math.floor((1461*(y+4800+Math.floor((m-14)/12)))/4)
+    + Math.floor((367*(m-2-12*Math.floor((m-14)/12)))/12)
+    - Math.floor((3*Math.floor((y+4900+Math.floor((m-14)/12))/100))/4)
+    + d - 32075;
+  const epoch = 1948440;
+  let l = jd - epoch + 10632;
+  let n = Math.floor((l-1)/10631);
+  l = l - 10631*n + 354;
+  let j = (Math.floor((10985-l)/5316))*(Math.floor((50*l)/17719)) + (Math.floor(l/5670))*(Math.floor((43*l)/15238));
+  l = l - (Math.floor((30-j)/15))*(Math.floor((17719*j)/50)) - (Math.floor(j/16))*(Math.floor((15238*j)/43)) + 29;
+  let hMonth = Math.floor((24*l)/709);
+  let hDay = l - Math.floor((709*hMonth)/24);
+  let hYear = 30*n + j - 30;
+  return {year:hYear, month:hMonth, day:hDay};
+}
+function hijriToGregorian(hYear,hMonth,hDay){
+  const epoch = 1948440;
+  let jd = hDay + Math.ceil(29.5*(hMonth-1)) + (hYear-1)*354 + Math.floor((3+11*hYear)/30) + epoch - 1;
+  let l = jd + 68569;
+  let n = Math.floor((4*l)/146097);
+  l = l - Math.floor((146097*n+3)/4);
+  let i = Math.floor((4000*(l+1))/1461001);
+  l = l - Math.floor((1461*i)/4) + 31;
+  let j = Math.floor((80*l)/2447);
+  let day = l - Math.floor((2447*j)/80);
+  l = Math.floor(j/11);
+  let month = j + 2 - 12*l;
+  let year = 100*(n-49) + i + l;
+  return new Date(year, month-1, day);
+}
+const HIJRI_MONTHS = ['محرم','صفر','ربیع الاول','ربیع الثانی','جمادی الاولیٰ','جمادی الثانیہ','رجب','شعبان','رمضان','شوال','ذوالقعدہ','ذوالحجہ'];
+
+// ---------- Topics ----------
+const TOPICS = [
+{id:'namaz', icon:'🕌', title:'نماز کا طریقہ', render: renderNamaz},
+{id:'wudu', icon:'💧', title:'وضو کا طریقہ', render: renderWudu},
+{id:'ghusl', icon:'🚿', title:'غسل کا طریقہ', render: renderGhusl},
+{id:'janazah', icon:'🤲', title:'نماز جنازہ', render: renderJanazah},
+{id:'dua', icon:'📿', title:'دعائیں', render: renderDuas},
+{id:'hadith', icon:'📖', title:'احادیث', render: renderHadith},
+{id:'itikaf', icon:'🕋', title:'اعتکاف', render: renderItikaf},
+{id:'umrah', icon:'🕋', title:'عمرہ', render: renderUmrah},
+{id:'hajj', icon:'🕋', title:'حج', render: renderHajj},
+{id:'zakat', icon:'💰', title:'زکوٰۃ + کیلکولیٹر', render: renderZakat},
+{id:'ramadan-timings', icon:'🌙', title:'سحر و افطار اوقات', render: renderRamadanTimings},
+{id:'ramadan-calendar', icon:'📅', title:'رمضان کب آئے گا', render: renderRamadanCalendar},
+{id:'islamic-calendar', icon:'🗓️', title:'اسلامی کیلنڈر سمجھیں', render: renderIslamicCalendar},
+];
+
+const tabbar = document.getElementById('tabbar');
+const topicsEl = document.getElementById('topics');
+
+TOPICS.forEach((t,i)=>{
+  const btn = document.createElement('button');
+  btn.className = 'tabbtn' + (i===0?' active':'');
+  btn.textContent = `${t.icon} ${t.title}`;
+  btn.addEventListener('click', ()=> selectTab(t.id));
+  btn.dataset.id = t.id;
+  tabbar.appendChild(btn);
+
+  const sec = document.createElement('section');
+  sec.className = 'topic' + (i===0?' active':'');
+  sec.id = 'topic-'+t.id;
+  sec.innerHTML = t.render();
+  topicsEl.appendChild(sec);
+});
+
+function selectTab(id){
+  document.querySelectorAll('.tabbtn').forEach(b=>b.classList.toggle('active', b.dataset.id===id));
+  document.querySelectorAll('.topic').forEach(s=>s.classList.toggle('active', s.id==='topic-'+id));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ---------- Content renderers ----------
+
+function renderNamaz(){
+  return `
+  <h2>🕌 نماز کا طریقہ</h2>
+  <div class="note">یہ عام (حنفی) طریقہ ہے جو پاکستان میں رائج ہے۔ ہر رکعت میں ترتیب یہی رہتی ہے، صرف رکعتوں کی تعداد فرض/سنت کے مطابق بدلتی ہے۔</div>
+  <ol class="steps">
+    <li><span class="step-title">نیت</span>دل میں نیت کریں کہ کون سی نماز، کتنی رکعتیں پڑھ رہے ہیں، قبلہ رخ کھڑے ہو جائیں۔</li>
+    <li><span class="step-title">تکبیرِ تحریمہ</span>
+      <span class="arabic">اللهُ أَكْبَرُ</span><span class="translit">Allahu Akbar</span><span class="meaning">اللہ سب سے بڑا ہے — دونوں ہاتھ کانوں تک اٹھا کر باندھ لیں۔</span>
+    </li>
+    <li><span class="step-title">ثناء (قیام میں)</span>
+      <span class="arabic">سُبْحَانَكَ اللّٰهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالٰى جَدُّكَ وَلَا إِلٰهَ غَيْرُكَ</span>
+      <span class="meaning">اے اللہ تو پاک ہے، تیری تعریف کے ساتھ، تیرا نام بابرکت ہے، تیری شان بلند ہے، تیرے سوا کوئی معبود نہیں۔</span>
+    </li>
+    <li><span class="step-title">تعوذ و تسمیہ + سورۃ الفاتحہ</span>اعوذ باللہ اور بسم اللہ پڑھ کر سورۃ الفاتحہ مکمل پڑھیں، پھر کوئی چھوٹی سورت ملائیں۔</li>
+    <li><span class="step-title">رکوع</span>
+      <span class="arabic">سُبْحَانَ رَبِّيَ الْعَظِيمِ</span><span class="translit">Subhana Rabbiyal Azeem</span>
+      <span class="meaning">پاک ہے میرا رب جو عظمت والا ہے — تین بار، کمر جھکا کر ہاتھ گھٹنوں پر۔</span>
+    </li>
+    <li><span class="step-title">قومہ (رکوع سے اٹھنا)</span>
+      <span class="arabic">سَمِعَ اللّٰهُ لِمَنْ حَمِدَهُ، رَبَّنَا لَكَ الْحَمْدُ</span>
+      <span class="meaning">اللہ نے سن لی اس کی جس نے اس کی حمد کی، اے ہمارے رب تیرے ہی لیے تمام تعریفیں۔</span>
+    </li>
+    <li><span class="step-title">سجدہ (پہلا)</span>
+      <span class="arabic">سُبْحَانَ رَبِّيَ الْأَعْلَىٰ</span><span class="translit">Subhana Rabbiyal A'la</span>
+      <span class="meaning">پاک ہے میرا رب جو سب سے بلند ہے — تین بار، پیشانی، ناک، دونوں ہاتھ، گھٹنے اور پاؤں زمین پر۔</span>
+    </li>
+    <li><span class="step-title">جلسہ (دو سجدوں کے درمیان بیٹھنا)</span>مختصر سیدھے بیٹھ کر دوسرے سجدے کی طرف جائیں۔</li>
+    <li><span class="step-title">سجدہ (دوسرا)</span>وہی تسبیح دہرائیں جو پہلے سجدے میں پڑھی تھی۔ اس سے ایک رکعت مکمل ہوئی۔</li>
+    <li><span class="step-title">دوسری رکعت</span>کھڑے ہو کر دوبارہ سورۃ الفاتحہ اور سورت سے شروع کریں، رکوع و سجدے دہرائیں۔</li>
+    <li><span class="step-title">تشہد (قعدہ)</span>
+      <span class="arabic">التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ، السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ...</span>
+      <span class="meaning">دو یا آخری رکعت کے بعد بیٹھ کر پڑھیں، شہادت کی انگلی سے اشارہ کریں۔</span>
+    </li>
+    <li><span class="step-title">درود شریف (آخری قعدہ میں)</span>
+      <span class="arabic">اللّٰهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ...</span>
+      <span class="meaning">آخری رکعت کے تشہد کے بعد پڑھا جاتا ہے۔</span>
+    </li>
+    <li><span class="step-title">دعا</span>کوئی مسنون دعا پڑھیں، مثلاً "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً..."۔</li>
+    <li><span class="step-title">سلام</span>
+      <span class="arabic">السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ</span>
+      <span class="meaning">پہلے دائیں طرف پھر بائیں طرف چہرہ پھیر کر سلام کریں — نماز مکمل ہوئی۔</span>
+    </li>
+  </ol>`;
+}
+
+function renderWudu(){
+  return `
+  <h2>💧 وضو کا طریقہ</h2>
+  <div class="note">نماز سے پہلے لازمی ہے۔ ترتیب سنت کے مطابق رکھیں۔</div>
+  <ol class="steps">
+    <li><span class="step-title">نیت اور بسم اللہ</span>دل میں وضو کی نیت کریں اور "بِسْمِ اللَّهِ" کہیں۔</li>
+    <li><span class="step-title">ہاتھ دھونا</span>دونوں ہاتھ گٹوں تک تین بار دھوئیں، انگلیوں کا خلال کریں۔</li>
+    <li><span class="step-title">کلی کرنا (مضمضہ)</span>تین بار منہ میں پانی ڈال کر اچھی طرح کلی کریں۔</li>
+    <li><span class="step-title">ناک میں پانی (استنشاق)</span>تین بار ناک میں پانی چڑھا کر صاف کریں (روزے کی حالت میں ہلکا رکھیں)۔</li>
+    <li><span class="step-title">چہرہ دھونا</span>پیشانی کے بالوں سے ٹھوڑی تک اور ایک کان کی لو سے دوسرے تک، تین بار۔</li>
+    <li><span class="step-title">بازو دھونا</span>پہلے دایاں پھر بایاں بازو، ہاتھ سے کہنی سمیت تین بار۔</li>
+    <li><span class="step-title">سر کا مسح</span>گیلے ہاتھوں سے ایک بار پورے سر پر پھیریں (آگے سے پیچھے، پھر واپس)۔</li>
+    <li><span class="step-title">کانوں کا مسح</span>شہادت کی انگلیوں سے کانوں کے اندر اور انگوٹھوں سے باہر کا مسح کریں۔</li>
+    <li><span class="step-title">گردن کا مسح</span>ہاتھ کی پشت سے گردن پر پھیریں (سنت)۔</li>
+    <li><span class="step-title">پاؤں دھونا</span>پہلے دایاں پھر بایاں پاؤں، ٹخنوں سمیت تین بار، انگلیوں کا خلال کریں۔</li>
+    <li><span class="step-title">دعا</span>وضو مکمل ہونے کے بعد کلمہ شہادت اور دعائے وضو پڑھیں۔</li>
+  </ol>`;
+}
+
+function renderGhusl(){
+  return `
+  <h2>🚿 غسل کا طریقہ (لفظ بہ لفظ)</h2>
+  <div class="note">جنابت، حیض، نفاس کے بعد یا جمعہ/عیدین کے لیے مسنون غسل۔ فرض تین چیزیں ہیں: کلی، ناک میں پانی، پورے بدن پر پانی بہانا — باقی سنت ہیں۔</div>
+  <ol class="steps">
+    <li><span class="step-title">نیت</span>دل میں غسل کی نیت کریں۔</li>
+    <li><span class="step-title">ہاتھ دھونا</span>دونوں ہاتھ گٹوں تک تین بار دھوئیں۔</li>
+    <li><span class="step-title">شرمگاہ اور جسم کی صفائی</span>اگر جسم پر نجاست ہو تو پہلے اسے دھو کر صاف کریں۔</li>
+    <li><span class="step-title">مکمل وضو کریں</span>پاؤں دھونے کے علاوہ نماز والا مکمل وضو کریں (پاؤں آخر میں دھوئیں گے)۔</li>
+    <li><span class="step-title">سر پر پانی</span>سر پر تین بار پانی ڈالیں، بالوں کی جڑوں تک پانی پہنچائیں۔</li>
+    <li><span class="step-title">دایاں کندھا/جسم</span>پورے جسم کے دائیں حصے پر تین بار پانی بہائیں، رگڑ کر دھوئیں۔</li>
+    <li><span class="step-title">بایاں کندھا/جسم</span>پھر بائیں حصے پر تین بار پانی بہائیں۔</li>
+    <li><span class="step-title">پورا بدن</span>جگہ بدل کر پورے جسم پر پانی بہائیں تاکہ کوئی جگہ خشک نہ رہے (ناف، کانوں کے پیچھے، بغلیں چیک کریں)۔</li>
+    <li><span class="step-title">پاؤں دھونا</span>آخر میں دونوں پاؤں ٹخنوں سمیت دھو لیں — غسل مکمل ہوا۔</li>
+  </ol>
+  <div class="note">فرض صرف تین ہیں: 1) کلی کرنا 2) ناک میں پانی ڈالنا 3) پورے جسم پر پانی بہانا۔ باقی ترتیب سنت کی وجہ سے بہتر اور مکمل ہے۔</div>`;
+}
+
+function renderJanazah(){
+  return `
+  <h2>🤲 نماز جنازہ کا طریقہ</h2>
+  <div class="note">نماز جنازہ میں رکوع، سجدہ نہیں ہوتا — صرف کھڑے ہو کر چار تکبیریں اور دعائیں پڑھی جاتی ہیں۔ یہ فرضِ کفایہ ہے۔</div>
+  <ol class="steps">
+    <li><span class="step-title">صف بندی</span>میت کو قبلہ رخ سامنے رکھا جاتا ہے، نمازی امام کے پیچھے صفیں بنا کر کھڑے ہوتے ہیں، نیت دل میں کریں۔</li>
+    <li><span class="step-title">پہلی تکبیر</span>
+      <span class="arabic">اللهُ أَكْبَرُ</span> کہہ کر ہاتھ باندھ لیں، پھر ثناء پڑھیں (وہی جو نماز میں پڑھتے ہیں: سُبْحَانَكَ اللّٰهُمَّ...)۔
+    </li>
+    <li><span class="step-title">دوسری تکبیر</span>ہاتھ اٹھائے بغیر "اللهُ أَكْبَرُ" کہیں، پھر درود شریف پڑھیں (اللّٰهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ...)۔</li>
+    <li><span class="step-title">تیسری تکبیر</span>"اللهُ أَكْبَرُ" کہہ کر میت کے لیے دعائے مغفرت پڑھیں:
+      <span class="arabic">اللّٰهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا...</span>
+      <span class="meaning">اے اللہ ہمارے زندہ اور فوت شدگان کو بخش دے... (بڑے کے لیے) یا بچے کے لیے الگ دعا۔</span>
+    </li>
+    <li><span class="step-title">چوتھی تکبیر</span>"اللهُ أَكْبَرُ" کہہ کر تھوڑی دیر خاموش کھڑے رہیں (کوئی دعا نہیں)۔</li>
+    <li><span class="step-title">سلام</span>دائیں اور بائیں طرف سلام پھیر کر نماز مکمل کریں — کوئی قعدہ یا سجدہ نہیں ہوتا۔</li>
+  </ol>
+  <div class="note">اگر دعائے مغفرت یاد نہ ہو تو دل میں میت کے لیے مغفرت کی دعا کرنا بھی کافی سمجھا جاتا ہے — لیکن سیکھ لینا بہتر ہے۔</div>`;
+}
+
+function renderDuas(){
+  const duas = [
+    {occ:'صبح اٹھتے وقت', ar:'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ', tr:'Alhamdulillahil ladhi ahyana ba\'da ma amatana wa ilaihin nushur', me:'تمام تعریفیں اللہ کے لیے جس نے ہمیں مارنے کے بعد زندہ کیا، اور اسی کی طرف اٹھنا ہے۔'},
+    {occ:'سونے سے پہلے', ar:'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا', tr:'Bismika Allahumma amutu wa ahya', me:'اے اللہ تیرے ہی نام سے مرتا اور جیتا ہوں۔'},
+    {occ:'کھانے سے پہلے', ar:'بِسْمِ اللَّهِ', tr:'Bismillah', me:'اللہ کے نام سے (شروع کرتا ہوں)۔'},
+    {occ:'کھانے کے بعد', ar:'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ', tr:'Alhamdulillahil ladhi at\'amani hadha wa razaqanihi', me:'تمام تعریفیں اللہ کے لیے جس نے مجھے یہ کھلایا اور بغیر میری طاقت کے رزق دیا۔'},
+    {occ:'گھر سے نکلتے وقت', ar:'بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ', tr:'Bismillahi tawakkaltu \'alallah', me:'اللہ کے نام سے، میں نے اللہ پر بھروسہ کیا، طاقت و قوت اللہ ہی کی طرف سے ہے۔'},
+    {occ:'مسجد میں داخل ہوتے وقت', ar:'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ', tr:'Allahummaf tah li abwaba rahmatik', me:'اے اللہ میرے لیے اپنی رحمت کے دروازے کھول دے۔'},
+    {occ:'سفر کی دعا', ar:'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ', tr:'Subhanal ladhi sakhkhara lana hadha', me:'پاک ہے وہ ذات جس نے اس سواری کو ہمارے لیے مسخر کیا، ہم اسے قابو میں لانے والے نہ تھے۔'},
+    {occ:'پریشانی کے وقت', ar:'حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ', tr:'Hasbunallahu wa ni\'mal wakeel', me:'اللہ ہمارے لیے کافی ہے اور وہ بہترین کارساز ہے۔'},
+    {occ:'استغفار', ar:'أَسْتَغْفِرُ اللَّهَ رَبِّي مِنْ كُلِّ ذَنْبٍ وَأَتُوبُ إِلَيْهِ', tr:'Astaghfirullaha Rabbi min kulli dhanbin wa atubu ilaih', me:'میں اللہ سے ہر گناہ کی معافی مانگتا ہوں اور اسی کی طرف رجوع کرتا ہوں۔'},
+  ];
+  return `
+  <h2>📿 روزمرہ کی دعائیں</h2>
+  <div class="note">چند اہم اور مختصر مسنون دعائیں — روزانہ کے معمولات میں پڑھنے کے لیے۔</div>
+  ${duas.map(d=>`
+    <div class="card">
+      <div class="occasion">${d.occ}</div>
+      <span class="arabic">${d.ar}</span>
+      <span class="translit">${d.tr}</span>
+      <span class="meaning">${d.me}</span>
+    </div>`).join('')}`;
+}
+
+function renderHadith(){
+  const list = [
+    {ar:'إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ', me:'اعمال کا دارومدار نیتوں پر ہے۔', src:'صحیح بخاری، صحیح مسلم'},
+    {ar:'مَنْ لَا يَرْحَمُ لَا يُرْحَمُ', me:'جو رحم نہیں کرتا اس پر رحم نہیں کیا جاتا۔', src:'صحیح بخاری'},
+    {ar:'الدِّينُ النَّصِيحَةُ', me:'دین خیر خواہی کا نام ہے۔', src:'صحیح مسلم'},
+    {ar:'مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ', me:'جو اللہ اور آخرت کے دن پر ایمان رکھتا ہے وہ اچھی بات کہے یا خاموش رہے۔', src:'صحیح بخاری، صحیح مسلم'},
+    {ar:'خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ', me:'تم میں سب سے بہتر وہ ہے جو قرآن سیکھے اور سکھائے۔', src:'صحیح بخاری'},
+    {ar:'الطُّهُورُ شَطْرُ الْإِيمَانِ', me:'پاکیزگی ایمان کا آدھا حصہ ہے۔', src:'صحیح مسلم'},
+    {ar:'بُنِيَ الْإِسْلَامُ عَلَىٰ خَمْسٍ', me:'اسلام کی بنیاد پانچ چیزوں پر رکھی گئی ہے (کلمہ، نماز، زکوٰۃ، روزہ، حج)۔', src:'صحیح بخاری، صحیح مسلم'},
+  ];
+  return `
+  <h2>📖 منتخب احادیث</h2>
+  <div class="note">یہ چند معروف اور متفق علیہ احادیث ہیں۔ مکمل تحقیق اور تفصیلی مطالعے کے لیے مستند علماء اور کتبِ حدیث سے رجوع کریں۔</div>
+  ${list.map(h=>`
+    <div class="hadith-card">
+      <span class="arabic">${h.ar}</span>
+      <span class="meaning">${h.me}</span>
+      <div class="src">${h.src}</div>
+    </div>`).join('')}`;
+}
+
+function renderItikaf(){
+  return `
+  <h2>🕋 اعتکاف کا طریقہ</h2>
+  <div class="note">اعتکاف یعنی اللہ کی عبادت کی نیت سے مسجد میں معتکف ہو جانا۔ سب سے معروف رمضان کے آخری عشرے کا اعتکاف ہے (سنتِ مؤکدہ علی الکفایہ)۔</div>
+  <ol class="steps">
+    <li><span class="step-title">نیت</span>مسجد میں داخل ہونے سے پہلے دل میں اعتکاف کی نیت کریں۔</li>
+    <li><span class="step-title">وقت</span>رمضان کے آخری عشرے کا اعتکاف 20 رمضان کو غروبِ آفتاب سے پہلے مسجد میں داخل ہو کر عید کا چاند نظر آنے تک جاری رہتا ہے۔</li>
+    <li><span class="step-title">مقام</span>اعتکاف صرف ایسی مسجد میں ہو سکتا ہے جہاں پانچوں نمازیں باجماعت ہوتی ہوں (مردوں کے لیے)۔</li>
+    <li><span class="step-title">پابندیاں</span>ضرورت (وضو، غسل، قضائے حاجت، کھانا لانا) کے علاوہ مسجد سے باہر نہ نکلیں۔</li>
+    <li><span class="step-title">مشغولیت</span>زیادہ سے زیادہ وقت نماز، تلاوتِ قرآن، ذکر، دعا اور علمِ دین میں گزاریں، غیر ضروری باتوں سے پرہیز کریں۔</li>
+    <li><span class="step-title">اختتام</span>عید کا چاند نظر آنے پر یا مقررہ وقت مکمل ہونے پر اعتکاف ختم ہو جاتا ہے۔</li>
+  </ol>
+  <div class="note">نفلی اعتکاف تھوڑی دیر کے لیے بھی ہو سکتا ہے — صرف نیت کر کے مسجد میں بیٹھنا کافی ہے۔</div>`;
+}
+
+function renderUmrah(){
+  return `
+  <h2>🕋 عمرہ کا طریقہ</h2>
+  <ol class="steps">
+    <li><span class="step-title">احرام</span>میقات پر پہنچ کر غسل کریں، احرام کے کپڑے پہنیں (مرد: دو سفید بغیر سلی چادریں)، دو رکعت نفل پڑھ کر عمرہ کی نیت کریں۔</li>
+    <li><span class="step-title">تلبیہ</span>احرام باندھتے ہی بلند آواز سے پڑھنا شروع کریں:
+      <span class="arabic">لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ...</span>
+      <span class="meaning">حاضر ہوں اے اللہ حاضر ہوں — مکہ پہنچنے تک بار بار دہراتے رہیں۔</span>
+    </li>
+    <li><span class="step-title">طواف (7 چکر)</span>حجرِ اسود کے سامنے سے نیت کر کے خانہ کعبہ کے گرد سات چکر لگائیں (پہلے تین میں مرد رمل/تیز چال کریں)۔</li>
+    <li><span class="step-title">مقامِ ابراہیم پر نماز</span>طواف کے بعد مقامِ ابراہیم کے قریب دو رکعت نفل پڑھیں۔</li>
+    <li><span class="step-title">آبِ زمزم</span>زمزم کا پانی پئیں۔</li>
+    <li><span class="step-title">سعی (صفا و مروہ کے 7 پھیرے)</span>صفا سے شروع کر کے مروہ تک، پھر مروہ سے صفا تک — کل سات پھیرے (مرد ایک مخصوص جگہ تیز چلیں)۔</li>
+    <li><span class="step-title">حلق/تقصیر</span>سعی مکمل ہونے پر مرد سر منڈوائیں یا بال چھوٹے کروائیں، خواتین بالوں کا تھوڑا سا حصہ کاٹیں — اس کے ساتھ عمرہ مکمل اور احرام کی پابندیاں ختم۔</li>
+  </ol>`;
+}
+
+function renderHajj(){
+  return `
+  <h2>🕋 حج کا طریقہ — قدم بہ قدم</h2>
+  <div class="note">یہ حجِ تمتع کی عمومی ترتیب ہے جو زیادہ تر لوگ ادا کرتے ہیں۔</div>
+  <ol class="steps">
+    <li><span class="step-title">8 ذوالحجہ — احرام اور منیٰ</span>مکہ میں احرام باندھیں (اگر عمرہ کر کے حلال ہو چکے تھے)، حج کی نیت اور تلبیہ پڑھیں، منیٰ روانہ ہو کر ظہر، عصر، مغرب، عشاء اور اگلے دن فجر وہیں ادا کریں۔</li>
+    <li><span class="step-title">9 ذوالحجہ — میدانِ عرفات (وقوفِ عرفہ)</span>سورج ڈھلنے کے بعد عرفات پہنچیں، ظہر اور عصر ملا کر پڑھیں، غروبِ آفتاب تک دعا، ذکر اور استغفار میں مصروف رہیں — یہ حج کا سب سے اہم رکن ہے۔</li>
+    <li><span class="step-title">9 ذوالحجہ کی رات — مزدلفہ</span>غروب کے بعد مزدلفہ جائیں، مغرب اور عشاء ملا کر پڑھیں، رات وہیں گزاریں، جمرات کے لیے کنکریاں جمع کریں، فجر کے بعد منیٰ روانہ ہوں۔</li>
+    <li><span class="step-title">10 ذوالحجہ — یومِ عید (رمی، قربانی، حلق)</span>
+      1) جمرہ عقبہ کو 7 کنکریاں ماریں،
+      2) قربانی کریں،
+      3) مرد سر منڈوائیں/بال چھوٹے کروائیں — اس سے بیشتر پابندیاں ختم ہو جاتی ہیں۔
+    </li>
+    <li><span class="step-title">طوافِ زیارت (طوافِ افاضہ)</span>10، 11 یا 12 ذوالحجہ کو مکہ جا کر کعبہ کا طواف کریں (سعی بھی، اگر پہلے نہ کی ہو) — یہ حج کا لازمی رکن ہے۔</li>
+    <li><span class="step-title">11 و 12 ذوالحجہ — تینوں جمرات کی رمی</span>ہر دن، سورج ڈھلنے کے بعد، تینوں جمرات (صغریٰ، وسطیٰ، عقبہ) کو 7-7 کنکریاں ماریں، منیٰ میں قیام جاری رکھیں۔</li>
+    <li><span class="step-title">طوافِ وداع</span>مکہ سے واپسی سے پہلے، سب سے آخر میں، الوداعی طواف کریں — حج مکمل ہوا۔</li>
+  </ol>
+  <div class="note">حج کے مسائل میں بہت سی تفصیلات اور استثناء ہوتے ہیں (بیمار، خواتین، معذور افراد کے لیے آسانیاں) — روانگی سے پہلے کسی مستند حج گائیڈ/عالم سے تربیت ضرور لیں۔</div>`;
+}
+
+function renderZakat(){
+  return `
+  <h2>💰 زکوٰۃ کا طریقہ اور کیلکولیٹر</h2>
+  <div class="note">زکوٰۃ اس وقت فرض ہوتی ہے جب آپ کا مجموعی مال (سونا، چاندی، نقدی، تجارتی سامان وغیرہ) ایک سال تک نصاب کے برابر یا زیادہ رہے۔ نصاب: <b>87.48 گرام سونا</b> یا <b>612.36 گرام چاندی</b> کی مالیت (عام طور پر چاندی کا نصاب استعمال ہوتا ہے کیونکہ یہ کم ہے اور غریبوں کے لیے زیادہ فائدہ مند ہے)۔ شرح: کل مال کا <b>2.5%</b>۔</div>
+
+  <h3 class="sub">کیلکولیٹر</h3>
+  <div class="calc-row"><label>نقدی اور بینک بیلنس (روپے)</label><input type="number" id="zCash" placeholder="0"></div>
+  <div class="calc-row"><label>سونے کی مالیت (روپے)</label><input type="number" id="zGold" placeholder="0"></div>
+  <div class="calc-row"><label>چاندی کی مالیت (روپے)</label><input type="number" id="zSilver" placeholder="0"></div>
+  <div class="calc-row"><label>تجارتی سامان/اسٹاک (روپے)</label><input type="number" id="zStock" placeholder="0"></div>
+  <div class="calc-row"><label>دیگر قابلِ زکوٰۃ سرمایہ کاری</label><input type="number" id="zInvest" placeholder="0"></div>
+  <div class="calc-row"><label>مائنس: قرضے/واجبات (روپے)</label><input type="number" id="zDebt" placeholder="0"></div>
+  <div class="calc-row"><label>آج چاندی کی قیمت فی گرام (روپے)</label><input type="number" id="zSilverPrice" placeholder="مثلاً 280"></div>
+  <button class="calc-btn" id="zakatCalcBtn">زکوٰۃ کا حساب لگائیں</button>
+  <div class="calc-result" id="zakatResult"></div>
+
+  <h3 class="sub">اہم مسائل</h3>
+  <ol class="steps">
+    <li><span class="step-title">کب فرض ہوتی ہے</span>جب مال نصاب کو پہنچے اور اس پر ایک مکمل قمری سال گزر جائے۔</li>
+    <li><span class="step-title">کن چیزوں پر زکوٰۃ</span>نقدی، سونا چاندی (زیورات سمیت)، تجارتی سامان، سرمایہ کاری کا نفع دینے والا حصہ۔</li>
+    <li><span class="step-title">کن پر نہیں</span>ذاتی استعمال کی چیزیں (گھر، گاڑی، کپڑے، فرنیچر) پر زکوٰۃ نہیں۔</li>
+    <li><span class="step-title">کسے دی جائے</span>غریب، مسکین، مقروض، مسافر، اور قرآن میں بیان کردہ دیگر مستحقین کو۔</li>
+  </ol>
+
+  <script>
+  (function(){
+    document.getElementById('zakatCalcBtn').addEventListener('click', function(){
+      function num(id){ const v = parseFloat(document.getElementById(id).value); return isNaN(v)?0:v; }
+      const total = num('zCash')+num('zGold')+num('zSilver')+num('zStock')+num('zInvest')-num('zDebt');
+      const silverPrice = num('zSilverPrice');
+      const nisab = silverPrice > 0 ? silverPrice*612.36 : null;
+      const resultEl = document.getElementById('zakatResult');
+      if(total <= 0){
+        resultEl.innerHTML = '<div>آپ کا خالص مال صفر یا منفی ہے — فی الحال زکوٰۃ فرض نہیں۔</div>';
+        resultEl.classList.add('show');
+        return;
+      }
+      let html = '';
+      if(nisab !== null){
+        if(total >= nisab){
+          const zakat = total * 0.025;
+          html = \`آپ کا مال نصاب (روپے \${Math.round(nisab).toLocaleString()}) سے زیادہ ہے۔<br>واجب الادا زکوٰۃ: <b>روپے \${Math.round(zakat).toLocaleString()}</b> (2.5%)\`;
+        } else {
+          html = \`آپ کا مال (روپے \${Math.round(total).toLocaleString()}) نصاب (روپے \${Math.round(nisab).toLocaleString()}) سے کم ہے — فی الحال زکوٰۃ فرض نہیں، لیکن نفلی صدقہ بہترین عمل ہے۔\`;
+        }
+      } else {
+        const zakat = total * 0.025;
+        html = \`چاندی کی قیمت درج نہیں کی — نصاب چیک نہیں ہو سکا۔ اگر آپ کا مال نصاب کے برابر ہے تو زکوٰۃ ہو گی: <b>روپے \${Math.round(zakat).toLocaleString()}</b> (2.5%)\`;
+      }
+      resultEl.innerHTML = html;
+      resultEl.classList.add('show');
+    });
+  })();
+  </script>`;
+}
+
+function renderRamadanTimings(){
+  return `
+  <h2>🌙 سحر و افطار کے اوقات</h2>
+  <div class="note">سحری کا وقت فجر سے پہلے ختم ہوتا ہے، اور افطار مغرب کے وقت ہوتا ہے۔ اپنی لوکیشن سے آج کے اوقات معلوم کریں۔</div>
+  <button class="locbtn" id="ramTimingsBtn">📍 میری لوکیشن سے اوقات معلوم کریں</button>
+  <div id="ramTimingsResult"></div>
+  <script>
+  (function(){
+    document.getElementById('ramTimingsBtn').addEventListener('click', function(){
+      const el = document.getElementById('ramTimingsResult');
+      el.innerHTML = '<p>مقام معلوم کیا جا رہا ہے…</p>';
+      if(!navigator.geolocation){ el.innerHTML = '<p>یہ براؤزر لوکیشن سپورٹ نہیں کرتا۔</p>'; return; }
+      navigator.geolocation.getCurrentPosition(async function(pos){
+        try{
+          const {latitude, longitude} = pos.coords;
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+          const params = new URLSearchParams({latitude, longitude, timezone:tz, method:1, school:1});
+          const res = await fetch('https://api.islamic.app/v1/timings/today?'+params);
+          const json = await res.json();
+          const t = json.data.timings;
+          el.innerHTML = \`<table class="timings-table">
+            <tr><td>سحری ختم (فجر)</td><td>\${t.Fajr}</td></tr>
+            <tr><td>افطار (مغرب)</td><td>\${t.Maghrib}</td></tr>
+          </table><p style="font-family:Jost,sans-serif;font-size:11px;color:var(--cream-dim);">\${json.data.date.readable}</p>\`;
+        }catch(e){ el.innerHTML = '<p>اوقات معلوم نہیں ہو سکے، دوبارہ کوشش کریں۔</p>'; }
+      }, function(){ el.innerHTML = '<p>لوکیشن کی اجازت نہیں دی گئی۔</p>'; });
+    });
+  })();
+  </script>`;
+}
+
+function renderRamadanCalendar(){
+  const today = new Date();
+  const h = gregorianToHijri(today);
+  let targetYear = h.year;
+  if(h.month > 9 || (h.month === 9 && h.day > 0 && h.month===9 && false)) {}
+  if(h.month >= 9) targetYear = h.year + 1; // if we're already at/past Ramadan this year, estimate next year's
+  const estStart = hijriToGregorian(targetYear, 9, 1);
+  const estEnd = hijriToGregorian(targetYear, 9, 29);
+  const fmt = d => d.toLocaleDateString('ur-PK-u-ca-gregory', {day:'numeric',month:'long',year:'numeric'});
+  return `
+  <h2>📅 رمضان کب آئے گا (اندازہ)</h2>
+  <div class="note">⚠️ یہ اندازہ ریاضی کے حساب کتاب (tabular calendar) پر مبنی ہے۔ رمضان کی اصل تاریخ کا تعین چاند دیکھ کر ہوتا ہے، اور اس میں ایک دن آگے پیچھے ہو سکتا ہے۔ حتمی تاریخ کے لیے اپنے ملک کی رویتِ ہلال کمیٹی کے اعلان کا انتظار کریں۔</div>
+  <div class="cal-panel">
+    <div style="font-family:Jost,sans-serif;font-size:13px;color:var(--cream-dim);">اندازاً رمضان ${targetYear} ہجری شروع ہو گا</div>
+    <div class="hijri-big">${fmt(estStart)}</div>
+    <div class="greg-small">سے تقریباً ${fmt(estEnd)} تک (29 یا 30 دن)</div>
+  </div>`;
+}
+
+function renderIslamicCalendar(){
+  const today = new Date();
+  const h = gregorianToHijri(today);
+  const monthsHtml = HIJRI_MONTHS.map((m,i)=>`<div><span class="num">${i+1}.</span>${m}</div>`).join('');
+  return `
+  <h2>🗓️ اسلامی (ہجری) کیلنڈر کیسے سمجھیں</h2>
+  <div class="cal-panel">
+    <div style="font-family:Jost,sans-serif;font-size:12px;color:var(--cream-dim);">آج کی تاریخ</div>
+    <div class="hijri-big">${h.day} ${HIJRI_MONTHS[h.month-1]} ${h.year}ھ</div>
+    <div class="greg-small">${today.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})} کے مطابق</div>
+  </div>
+  <p>اسلامی کیلنڈر <b>چاند</b> کی گردش پر مبنی ہے (قمری سال)، جبکہ انگریزی کیلنڈر <b>سورج</b> پر مبنی ہے (شمسی سال)۔ اسی وجہ سے ہر سال اسلامی مہینے انگریزی کیلنڈر میں تقریباً 10-11 دن پیچھے آتے ہیں۔</p>
+  <p>قمری سال کل <b>12 مہینوں</b> پر مشتمل ہے، ہر مہینہ نئے چاند کے دکھائی دینے سے شروع ہوتا ہے اور 29 یا 30 دن کا ہوتا ہے۔ اسلامی تاریخ کا آغاز حضرت محمد ﷺ کی مکہ سے مدینہ ہجرت سے ہوتا ہے، اسی لیے اسے "ہجری" کہتے ہیں۔</p>
+  <h3 class="sub">اسلامی سال کے 12 مہینے</h3>
+  <div class="months-grid">${monthsHtml}</div>
+  <p style="margin-top:14px;">اہم مہینے: <b>رمضان</b> (9واں، روزوں کا مہینہ)، <b>ذوالحجہ</b> (12واں، حج کا مہینہ)، <b>محرم</b> (پہلا، نیا اسلامی سال شروع ہوتا ہے)۔</p>
+  <div class="note">اوپر دکھائی گئی تاریخ ریاضی کے حساب سے ہے — مقامی مسجد یا رویتِ ہلال کمیٹی کا اعلان حتمی تاریخ کے لیے ہمیشہ زیادہ معتبر ہوتا ہے۔</div>`;
+}
+
+})();
+</script>
+</body>
+</html>
